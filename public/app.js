@@ -1,20 +1,23 @@
-// TODO dynamic width w/ srcset for thumbnails
-function buildImageHTML(imagePath, gallery, alttext) {
-  return `<a href="/cdn-cgi/image/fit=cover/${imagePath}" data-fancybox="${gallery}">
-  <img alt="${alttext}" src="/cdn-cgi/image/fit=cover,width=150/${imagePath}"></a>`
-}
 function getImages() {
   fetch("/list").then( (resp) => {
     return resp.json()
   }).then( (body) => {
     console.log(body)
     var outHTML = ""
+    const photoViewer = document.getElementById("photo-viewer")
     for (const obj of body) {
-      const imageHTML = buildImageHTML(`/image/${obj}`, "gallery", obj)
-      outHTML += imageHTML
-      console.log(imageHTML)
+      // TODO dynamic width w/ srcset for thumbnails
+      const newImg = document.createElement("img")
+      newImg.alt = obj
+      newImg.src = `/cdn-cgi/image/fit=cover,width=150/image/${obj}`
+
+      const newHref = document.createElement("href")
+      newHref.setAttribute("href", `/cdn-cgi/image/fit=cover/image/${obj}`)
+      newHref.dataset.fancybox = "gallery"
+      newHref.appendChild(newImg)
+
+      photoViewer.appendChild(newHref)
     }
-    document.getElementById("photo-viewer").innerHTML = outHTML
   })
 }
 
