@@ -28,7 +28,6 @@ router.get("/list", async ({env, req, ctx}) => {
     const objects = await env.PHOTO_BUCKET.list(listOpts);
     console.log(objects)
     for (const obj of objects.objects) {
-      // TODO this should be obj.key, but type err?
       objList.push(obj.key)
     }
     if (objects.truncated) {
@@ -38,11 +37,30 @@ router.get("/list", async ({env, req, ctx}) => {
       break
     }
   }
+  // really hacky sorting I'm only doing b/c the dog is looking at me very
+  // sadly asking me to play
+  objList.sort((a:string, b:string): number => {
+    var aArr = a.split(".")[0].split("_")
+    var bArr = b.split(".")[0].split("_")
+    // A is newer 
+    if (aArr[1] > bArr[1]) {
+      return -1
+    // B is newer
+    } else if (aArr[1] < bArr[1]) {
+      return 1
+    } else {
+      if (aArr[2] > bArr[2]) {
+        return -1
+      } else if (aArr[2] < bArr[2]) {
+        return 1
+      }
+    }
+    return 0
+  })
   console.log(`listed object: {objList}`)
   return new Response(JSON.stringify(objList))
 })
 
-// TODO may need to not have router
 router.get('/image/:image_id', async ({req, env}) => {
   const object = await env.PHOTO_BUCKET.get(req.params.image_id);
 
