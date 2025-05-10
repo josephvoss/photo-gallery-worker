@@ -1,7 +1,7 @@
 // TODO dynamic width w/ srcset for thumbnails
 function buildImageHTML(imagePath, gallery, alttext) {
-  return `<a href="${imagePath}" data-fancybox="${gallery}">
-  <img alt="${alttext}" src="/cdn-cgi/image/width=150/${imagePath}"></a>`
+  return `<a href="/cdn-cgi/image/fit=cover/${imagePath}" data-fancybox="${gallery}">
+  <img alt="${alttext}" src="/cdn-cgi/image/fit=cover,width=150/${imagePath}"></a>`
 }
 function getImages() {
   fetch("/list").then( (resp) => {
