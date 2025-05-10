@@ -1,0 +1,25 @@
+{
+	"name": "photo-gallery-worker",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"deploy": "wrangler deploy",
+		"dev": "wrangler dev",
+		"start": "wrangler dev",
+		"cf-typegen": "wrangler types",
+		"watch:css": "tailwindcss -i src/style.css -o public/style.css --watch",
+		"build": "$npm_execpath run build:css",
+		"build:css": "tailwindcss -i src/style.css -o public/style.css"
+	},
+	"devDependencies": {
+		"@cloudflare/vitest-pool-workers": "^0.8.19",
+		"@tsndr/cloudflare-worker-router": "^3.2.10",
+		"@types/node": "^22.15.17",
+		"typescript": "^5.5.2",
+		"wrangler": "^4.14.4"
+	},
+	"dependencies": {
+		"@tailwindcss/cli": "^4.1.6",
+		"tailwindcss": "^4.1.6"
+	}
+}

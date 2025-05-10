@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"
+          />
+  <title>Luca</title>
+  </head>
+  <body>
+    <div class="flex flex-wrap">
+      <div id="photo-viewer" class="grid grid-cols-3 lg:grid-cols-6">
+      </div><!-- <div id="photo-viewer" class="grid grid-cols-3 md:grid-cols-6"> --> 
+    </div><!-- <div class="flex flex-wrap"> -->
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script>
+      Fancybox.bind('[data-fancybox="gallery"]', {
+        Hash: false,
+        Thumbs: false,
+
+        compact: false,
+
+        contentClick: "toggleCover",
+        wheel : "slide",
+
+        Toolbar: {
+          display: {
+            left: [],
+            middle: [],
+            right: ["close"],
+          },
+        },
+
+        Images: {
+          initialSize: "fit",
+        },
+      });    
+    </script>
+  </body>
+</html>
