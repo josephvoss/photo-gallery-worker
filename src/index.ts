@@ -37,26 +37,10 @@ router.get("/list", async ({env, req, ctx}) => {
       break
     }
   }
-  // really hacky sorting I'm only doing b/c the dog is looking at me very
-  // sadly asking me to play
-  objList.sort((a:string, b:string): number => {
-    var aArr = a.split(".")[0].split("_")
-    var bArr = b.split(".")[0].split("_")
-    // A is newer 
-    if (aArr[1] > bArr[1]) {
-      return -1
-    // B is newer
-    } else if (aArr[1] < bArr[1]) {
-      return 1
-    } else {
-      if (aArr[2] > bArr[2]) {
-        return -1
-      } else if (aArr[2] < bArr[2]) {
-        return 1
-      }
-    }
-    return 0
-  })
+  // Rev sort by date so newest is first. Assuming uploaded objects are in
+  // correct order
+  objList.sort()
+  objList.reverse()
   console.log(`listed object: {objList}`)
   return new Response(JSON.stringify(objList))
 })
